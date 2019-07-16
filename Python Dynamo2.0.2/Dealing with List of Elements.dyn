@@ -1,0 +1,188 @@
+{
+  "Uuid": "2d246fc9-0279-42d1-83f9-95022d130aa3",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "Dealing with List of Elements",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Enable Python support and load DesignScript library\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\n# The inputs to this node will be stored as a list in the IN variables.\r\ndataEnteringNode = IN\r\nElementList = []\r\nif isinstance(IN[0],list):\r\n\tElementList.extend(IN[0])\r\nelse:\r\n\tElementList.append(IN[0])\r\n\r\nElementList = UnwrapElement(ElementList)\r\nParametersListParam = []\r\nfor a in ElementList:\r\n\tParametersListParam.append(a.Parameters)\r\n\t\r\nParametersList = []\r\nwhile len(ParametersList) != len(ParametersListParam):\r\n\tParametersList.append([])\r\nfor list in ParametersListParam:\r\n\tfor item in list :\r\n\t\tParametersList[ParametersListParam.index(list)].append (item.Definition.Name)\r\n\r\nOUT = ParametersList",
+      "VariableInputPorts": true,
+      "Id": "802905a1a67245e8970c86bdad8b933e",
+      "Inputs": [
+        {
+          "Id": "5905609879ab4fe69a5ec109a3332243",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "3ff6936af95f41d1ad44e22f86cab8d0",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Nodes.DSModelElementsSelection, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "c2fc958b-08bd-44f4-bb5b-42eeae425243-0006137a",
+        "9f118965-197a-49da-8268-c1c5009e70ce-000613f0",
+        "9f118965-197a-49da-8268-c1c5009e70ce-0006142f",
+        "9f118965-197a-49da-8268-c1c5009e70ce-00061455"
+      ],
+      "Id": "e4937b9227374306a1bfdccd294a40f8",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "48467ba81f8e44a2b384a13266d15f33",
+          "Name": "Elements",
+          "Description": "The selected elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "5ee89bdf1c05414ea2dfadc9d35765ca",
+      "Inputs": [
+        {
+          "Id": "8d65b63695d444a3a248e778386adbf4",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "0575caa344f24f36806e3510ec7573f6",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "3ff6936af95f41d1ad44e22f86cab8d0",
+      "End": "8d65b63695d444a3a248e778386adbf4",
+      "Id": "540d8d42701340728b395f15044c8c40"
+    },
+    {
+      "Start": "48467ba81f8e44a2b384a13266d15f33",
+      "End": "5905609879ab4fe69a5ec109a3332243",
+      "Id": "1208491166c7473bab927e2261dfc1a2"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "802905a1a67245e8970c86bdad8b933e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 704.41838648573207,
+        "Y": 845.59905790606217
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Select Model Elements",
+        "Id": "e4937b9227374306a1bfdccd294a40f8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 335.41838648573207,
+        "Y": 845.59905790606217
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "5ee89bdf1c05414ea2dfadc9d35765ca",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 928.41838648573207,
+        "Y": 845.59905790606217
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "2ac32d2e6ca5486a89903b80aee1808e",
+        "Title": "Manejar Listas de Elementos",
+        "Nodes": [
+          "802905a1a67245e8970c86bdad8b933e",
+          "e4937b9227374306a1bfdccd294a40f8",
+          "5ee89bdf1c05414ea2dfadc9d35765ca"
+        ],
+        "Left": 325.41838648573207,
+        "Top": 792.59905790606217,
+        "Width": 691.0,
+        "Height": 172.0,
+        "FontSize": 36.0,
+        "InitialTop": 845.59905790606217,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": -70.82190466154654,
+    "Y": -410.79471813302592,
+    "Zoom": 0.68776760249100255
+  }
+}

@@ -1,0 +1,220 @@
+{
+  "Uuid": "2d246fc9-0279-42d1-83f9-95022d130aa3",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "CircleofParameters",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Enable Python support and load DesignScript library\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\n# The inputs to this node will be stored as a list in the IN variables.\r\nradi = IN[0]\r\nxin = IN [1]\r\nyin = IN [2]\r\nnumpoints = IN[3]\r\n\r\nimport math\r\n\r\nangles = []\r\nangles = range (0,360,numpoints)\r\n\r\n\r\n\r\nfor i, angle in enumerate(angles):\r\n\tangles[i] = math.radians(angle)\r\n\t\r\nxPoints = []\r\nfor x in angles:\r\n\txPoints.append(radi*math.cos(x)+xin)\r\n\r\nyPoints = []\r\nfor y in angles:\r\n\tyPoints.append(radi*math.sin(y)+yin)\r\n\r\nPointList = []\r\n\r\nfor i, point in enumerate(xPoints):\r\n\tPointList.append(Point.ByCoordinates(point,yPoints[i],0))\r\n\t\r\nOUT = PointList",
+      "VariableInputPorts": true,
+      "Id": "b9ea6aa3f90a463bb638115d507def37",
+      "Inputs": [
+        {
+          "Id": "d838c2ce3ffb46f9a08f27140c4b2310",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "7d7079ea84164652b5d9c29018459c0b",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "2f19a50c178a478db5bb1688d4943389",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6dd1932997b84aa092e5a177889e50e7",
+          "Name": "IN[3]",
+          "Description": "Input #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "4456081582e24dcb817ced60da1d93dc",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleSlider, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "MaximumValue": 100.0,
+      "MinimumValue": 0.0,
+      "StepValue": 0.1,
+      "InputValue": 4.7,
+      "Id": "8abf7c48f3a142d4ae0ad446f48a3dc0",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "976f14073b464dcd9871cfff2ed87f03",
+          "Name": "",
+          "Description": "Double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A slider that produces numeric values."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.IntegerSlider, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Integer",
+      "InputValue": 37,
+      "MaximumValue": 100,
+      "MinimumValue": 0,
+      "StepValue": 1,
+      "Id": "24280d30cf8f424aabe0cdb7164adbed",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "11750ddd3db24bc885b1c4f042e53518",
+          "Name": "",
+          "Description": "Int32",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A slider that produces integer values."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "976f14073b464dcd9871cfff2ed87f03",
+      "End": "d838c2ce3ffb46f9a08f27140c4b2310",
+      "Id": "68456e0dd51f45f69c8d47f32242bf10"
+    },
+    {
+      "Start": "976f14073b464dcd9871cfff2ed87f03",
+      "End": "7d7079ea84164652b5d9c29018459c0b",
+      "Id": "2156f3995beb474691f24835d4954705"
+    },
+    {
+      "Start": "976f14073b464dcd9871cfff2ed87f03",
+      "End": "2f19a50c178a478db5bb1688d4943389",
+      "Id": "2e8acfadbba84c61adef34245a26cdea"
+    },
+    {
+      "Start": "11750ddd3db24bc885b1c4f042e53518",
+      "End": "6dd1932997b84aa092e5a177889e50e7",
+      "Id": "a973a0db2be44070919dfb91d7345c8f"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": false,
+        "Name": "Python Script",
+        "Id": "b9ea6aa3f90a463bb638115d507def37",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 752.64890248583754,
+        "Y": 1526.7468029144843
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Number Slider",
+        "Id": "8abf7c48f3a142d4ae0ad446f48a3dc0",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 354.59087586066789,
+        "Y": 1488.8048295396538
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Integer Slider",
+        "Id": "24280d30cf8f424aabe0cdb7164adbed",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 354.59087586066789,
+        "Y": 1666.8048295396538
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "12004e0e4d10403a862e666306a35038",
+        "Title": "Circulo de Parametros",
+        "Nodes": [
+          "b9ea6aa3f90a463bb638115d507def37",
+          "8abf7c48f3a142d4ae0ad446f48a3dc0",
+          "24280d30cf8f424aabe0cdb7164adbed"
+        ],
+        "Left": 344.59087586066789,
+        "Top": 1435.8048295396538,
+        "Width": 542.05802662516965,
+        "Height": 299.0,
+        "FontSize": 36.0,
+        "InitialTop": 1488.8048295396538,
+        "InitialHeight": 323.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": -204.94343265036463,
+    "Y": -1117.2096280624355,
+    "Zoom": 0.87936387159400442
+  }
+}

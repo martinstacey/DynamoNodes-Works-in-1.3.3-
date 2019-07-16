@@ -1,0 +1,283 @@
+{
+  "Uuid": "2d246fc9-0279-42d1-83f9-95022d130aa3",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "TaskDialog",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleSlider, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "MaximumValue": 100.0,
+      "MinimumValue": 0.0,
+      "StepValue": 0.1,
+      "InputValue": 24.2,
+      "Id": "23526477136b4a408207cb9463fcc01f",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ac23d723474447b49b59149d2e5f76bf",
+          "Name": "",
+          "Description": "Double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A slider that produces numeric values."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.IntegerSlider, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Integer",
+      "InputValue": 37,
+      "MaximumValue": 100,
+      "MinimumValue": 0,
+      "StepValue": 1,
+      "Id": "35b46074be964c2bb2ca3afd5b03cc35",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "a94b74e7b2d14065a1ef0b3c07742b6b",
+          "Name": "",
+          "Description": "Int32",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A slider that produces integer values."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleSlider, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "MaximumValue": 100.0,
+      "MinimumValue": 0.0,
+      "StepValue": 0.1,
+      "InputValue": 5.6000000000000005,
+      "Id": "225dd1e3e9ca4bc4ac00f6e1e04860cd",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "f0460402e78240e08c1db311b5827bb3",
+          "Name": "",
+          "Description": "Double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A slider that produces numeric values."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Enable Python support and load DesignScript library\r\nimport clr\r\nimport math\r\nclr.AddReference('ProtoGeometry')\r\nclr.AddReference(\"RevitAPIUI\")\r\nfrom Autodesk.DesignScript.Geometry import *\r\nfrom Autodesk.Revit.UI import *\r\n\r\n#INS\r\nradi = IN[0]\r\nxin = IN [1]\r\nyin = IN [2]\r\nnumpoints = IN[3]\r\nextr = IN[4]\r\n\r\nangles = []\r\nangles = range (0,360,numpoints)\r\nfor i, angle in enumerate(angles):\r\n\tangles[i] = math.radians(angle)\r\nxPoints = []\r\nfor x in angles:\r\n\txPoints.append(radi*math.cos(x)+xin)\r\nyPoints = []\r\nfor y in angles:\r\n\tyPoints.append(radi*math.sin(y)+yin)\r\npointlist = []\r\nfor i, point in enumerate(xPoints):\r\n\tpointlist.append(Point.ByCoordinates(point,yPoints[i],0))\r\n#Polycurve\r\nLineList = PolyCurve.ByPoints(pointlist,True)\r\nSurface = LineList.Patch()\r\n#Extrusion\r\nExtrude = Surface.Thicken(extr)\r\n#Rotation X Axis\r\nPointOrigin = Point.ByCoordinates(0,0,0)\r\nPointDisplaceX = Point.ByCoordinates(1,0,0)\r\nVectorRotateX = Vector.ByTwoPoints(PointOrigin,PointDisplaceX)\r\nGeometryRotateX = Extrude.Rotate(PointOrigin,VectorRotateX,IN[5])\r\n\r\ndialog = TaskDialog(\"Titulo\") \r\ndialog.MainInstruction = \"Instruccion\"\r\ndialog.MainContent = \"Resultado\"\r\ndialog.CommonButtons = TaskDialogCommonButtons.Close;\r\ndialog.DefaultButton = TaskDialogResult.Close;\r\ndialog.Show()\r\n\r\nOUT = GeometryRotateX",
+      "VariableInputPorts": true,
+      "Id": "0747ab73d5d740e8bbf2e88ab0f74997",
+      "Inputs": [
+        {
+          "Id": "07f5e6802b4a4c5bb6f7d56277d3f731",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a9c4f61ed1cd4434bea8e360535121e1",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "feb5cf14e0f145038b2b1ab778c06617",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "297335a3cf0447e58a06ec3ab25ebe79",
+          "Name": "IN[3]",
+          "Description": "Input #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ecfd2dd6ce8d4961adaa94ffa5734273",
+          "Name": "IN[4]",
+          "Description": "Input #4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1f4d0e17358943d89965e106da3eff8d",
+          "Name": "IN[5]",
+          "Description": "Input #5",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "283642a181664364bbc46dfe22c85764",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "ac23d723474447b49b59149d2e5f76bf",
+      "End": "1f4d0e17358943d89965e106da3eff8d",
+      "Id": "8dd80cc8ebb94df5b331cc15017e2622"
+    },
+    {
+      "Start": "a94b74e7b2d14065a1ef0b3c07742b6b",
+      "End": "297335a3cf0447e58a06ec3ab25ebe79",
+      "Id": "3cecd01e259548a99ebcde3475992b5a"
+    },
+    {
+      "Start": "f0460402e78240e08c1db311b5827bb3",
+      "End": "ecfd2dd6ce8d4961adaa94ffa5734273",
+      "Id": "c72f9512ff53449b87470fa84d07e5ea"
+    },
+    {
+      "Start": "f0460402e78240e08c1db311b5827bb3",
+      "End": "feb5cf14e0f145038b2b1ab778c06617",
+      "Id": "666b4eaae0b54d819d4fd3cb91b71d01"
+    },
+    {
+      "Start": "f0460402e78240e08c1db311b5827bb3",
+      "End": "a9c4f61ed1cd4434bea8e360535121e1",
+      "Id": "f016c63d76f9428787075819c265bf16"
+    },
+    {
+      "Start": "f0460402e78240e08c1db311b5827bb3",
+      "End": "07f5e6802b4a4c5bb6f7d56277d3f731",
+      "Id": "cd2edb47b88e4963a4c3d5d9be37243e"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Number Slider",
+        "Id": "23526477136b4a408207cb9463fcc01f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 371.38125391201595,
+        "Y": 2351.3912295354212
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Integer Slider",
+        "Id": "35b46074be964c2bb2ca3afd5b03cc35",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 371.38125391201595,
+        "Y": 2267.3912295354212
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Number Slider",
+        "Id": "225dd1e3e9ca4bc4ac00f6e1e04860cd",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 371.38125391201595,
+        "Y": 2184.3912295354212
+      },
+      {
+        "ShowGeometry": false,
+        "Name": "Python Script",
+        "Id": "0747ab73d5d740e8bbf2e88ab0f74997",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 770.381253912016,
+        "Y": 2185.3912295354212
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "c0b846197c7543ecbe76909415c4e0d8",
+        "Title": "Task Dialog",
+        "Nodes": [
+          "23526477136b4a408207cb9463fcc01f",
+          "35b46074be964c2bb2ca3afd5b03cc35",
+          "225dd1e3e9ca4bc4ac00f6e1e04860cd",
+          "0747ab73d5d740e8bbf2e88ab0f74997"
+        ],
+        "Left": 361.38125391201595,
+        "Top": 2131.3912295354212,
+        "Width": 543.0,
+        "Height": 288.0,
+        "FontSize": 36.0,
+        "InitialTop": 2184.3912295354212,
+        "InitialHeight": 312.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": -31.5256581963437,
+    "Y": -965.60129382800392,
+    "Zoom": 0.58358596672316232
+  }
+}

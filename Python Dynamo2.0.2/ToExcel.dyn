@@ -1,0 +1,277 @@
+{
+  "Uuid": "2d246fc9-0279-42d1-83f9-95022d130aa3",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "ToExcel",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n#The inputs to this node will be stored as a list in the IN variables.\r\n\r\nimport math\r\nimport clr\r\nclr.AddReference(\"RevitAPIUI\")\r\nfrom Autodesk.Revit.UI import *\r\n#Points Creation\r\n\r\nimport clr\r\nclr.AddReferenceByName('Microsoft.Office.Interop.Excel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c')\r\nfrom Microsoft.Office.Interop import Excel\r\n\r\n\r\ndataEnteringNode = IN\r\nangles = []\r\n\r\n\r\nangles = range(0, 360, 10)\r\nfor index, angle in enumerate(angles):\r\n\tangles[index] =  math.radians(angle)\r\n\r\nxPoints = []\r\n\r\nfor x in angles:\r\n\txPoints.append(IN[0]*math.cos(x))\r\n\t\r\n\t\r\nyPoints = []\r\n\r\nfor x in angles:\r\n\tyPoints.append(IN[0]*math.sin(x))\r\n\t\r\n\r\npointlist = []\r\n\r\nfor index, point in enumerate(xPoints):\r\n\tpointlist.append(Point.ByCoordinates(point,yPoints[index],0))\r\n\r\n\r\n#Policurve creation\r\n\t\r\nLinelist = PolyCurve.ByPoints(pointlist, True)\t\r\n\r\n#Surface creation\r\n\r\nSurface = Linelist.Patch()\r\n\r\n#Extrusion creation\r\n\r\nExtrude = Surface.Thicken(IN[0])\r\n\r\n\r\n#Rotation\r\n\r\nPointOrigin = Point.ByCoordinates(0,0,0)\r\n\r\n#Rotation Axis x\r\n\r\nPointDesplaceX = Point.ByCoordinates(1,0,0)\r\n\r\nVectorRoateX = Vector.ByTwoPoints(PointOrigin, PointDesplaceX)\r\n\r\nGeometryRotateX = Extrude.Rotate(PointOrigin, VectorRoateX, IN[1])\r\n\r\n#Rotation Axis Y\r\n\r\nPointDesplaceY = Point.ByCoordinates(0,1,0)\r\n\r\nVectorRoateY = Vector.ByTwoPoints(PointOrigin, PointDesplaceY)\r\n\r\nGeometryRotateY = GeometryRotateX.Rotate(PointOrigin, VectorRoateY, IN[2])\r\n\r\n#Rotation Axis Z\r\n\r\nPointDesplaceZ = Point.ByCoordinates(0,0,1)\r\n\r\nVectorRoateZ = Vector.ByTwoPoints(PointOrigin, PointDesplaceZ)\r\n\r\nGeometryRotateZ = GeometryRotateY.Rotate(PointOrigin, VectorRoateZ, IN[3])\r\n\r\n\r\nSurfaceVolumne = str(round(Surface.Area,2))\r\nTotalVolume = str(round(Extrude.Volume,2))\r\n\r\ndialog = TaskDialog(\"Metric\")\r\ndialog.MainInstruction = \"Values\"\r\ndialog.MainContent = \"Surface:     \" + SurfaceVolumne + \"\\n\" + \"Volume:      \"+ TotalVolume\r\n\r\ndialog.CommonButtons = TaskDialogCommonButtons.Ok;\r\ndialog.DefaultButton = TaskDialogResult.Ok;\r\n\r\n\r\nif Surface.Area > 500 :\r\n\tdialog.MainInstruction = \"WARNING VALUE > 500\"\r\n\tdialog.MainIcon = TaskDialogIcon.TaskDialogIconWarning;\r\n\tdialog.Show()\r\nelif IN[4] == True :\r\n\tdialog.Show()\r\nelse :\r\n\tpass\r\n\r\nfilepath = IN[5]\r\n\r\nex = Excel.ApplicationClass()\r\nex.Visible - False\r\nex.DisplayAlerts = False\r\n\r\nworkbook = ex.Workbooks.Open(filepath)\r\nworksheet = workbook.Worksheets[1]\r\n\r\ncolumn = 2\r\nactivecell = worksheet.Cells[column,2]\r\n\r\nwhile activecell.Text != \"\":\r\n\tif activecell.Text !=\"\":\r\n\t\tcolumn = column+1\r\n\t\tactivecell = worksheet.Cells[column,2]\r\n\r\n\r\nactivecell.Value2 = Surface.Area\r\nworksheet.SaveAs(unicode(filepath))\r\nClose = workbook.Close(True)\r\nex.Quit()\r\n\r\n#Assign your output to the OUT variable.\r\nOUT =  GeometryRotateZ",
+      "VariableInputPorts": true,
+      "Id": "52909efd75144ce3a633bb1dcb1162ec",
+      "Inputs": [
+        {
+          "Id": "93832d6d9bd34662ad49dafd40f88e28",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9c396eaf4c9048f492996116445236d5",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5263a9dfa0f94aceab66ae261d005ddb",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "855458b2201f43bbb960d5ffb3ce5683",
+          "Name": "IN[3]",
+          "Description": "Input #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f8e3fde008c543c0ad0264ed07028b35",
+          "Name": "IN[4]",
+          "Description": "Input #4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f681bc4d2334420db772d7a57ca7eec7",
+          "Name": "IN[5]",
+          "Description": "Input #5",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "5ca70c33f2a44e2cb9906572ea7909a6",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "17;\n13;\n11;\n11;\nfalse;",
+      "Id": "afa6105773d8478eb044712348a54895",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "7d1c2d9955ed487d91f17bc787c0dbbc",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b9e8c74d0e224f04af00d38c357e565b",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f1f1d89209c248cbb0cfdb9e9000d97d",
+          "Name": "",
+          "Description": "Value of expression at line 3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "0f36153eb66e491c9e04a1987586528c",
+          "Name": "",
+          "Description": "Value of expression at line 4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b4ab2fe43ad94bddb4c66b20300a3e2f",
+          "Name": "",
+          "Description": "Value of expression at line 5",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.Filename, CoreNodeModels",
+      "HintPath": "D:\\Clases y Trabajo\\Trabajo\\2018\\Python Dynamo\\Test.xlsx",
+      "InputValue": ".\\Test.xlsx",
+      "NodeType": "ExtensionNode",
+      "Id": "1c0bfa9eeb804ef4ab6c1b65565b032b",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "10a2903a02f54b22b3d208c2aea32755",
+          "Name": "",
+          "Description": "Filename",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows you to select a file on the system to get its filename"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "7d1c2d9955ed487d91f17bc787c0dbbc",
+      "End": "93832d6d9bd34662ad49dafd40f88e28",
+      "Id": "a9c4241ad8934b28a77b0173d6e51e7f"
+    },
+    {
+      "Start": "b9e8c74d0e224f04af00d38c357e565b",
+      "End": "9c396eaf4c9048f492996116445236d5",
+      "Id": "a4833377268240119ce97e32b2fbe038"
+    },
+    {
+      "Start": "f1f1d89209c248cbb0cfdb9e9000d97d",
+      "End": "5263a9dfa0f94aceab66ae261d005ddb",
+      "Id": "0b059f60eeb448a79643572553fa27b4"
+    },
+    {
+      "Start": "0f36153eb66e491c9e04a1987586528c",
+      "End": "855458b2201f43bbb960d5ffb3ce5683",
+      "Id": "894625f15e30422885dfe86e0bbfe4a2"
+    },
+    {
+      "Start": "b4ab2fe43ad94bddb4c66b20300a3e2f",
+      "End": "f8e3fde008c543c0ad0264ed07028b35",
+      "Id": "6fd57bda942a4140b5b2ea133cac6d50"
+    },
+    {
+      "Start": "10a2903a02f54b22b3d208c2aea32755",
+      "End": "f681bc4d2334420db772d7a57ca7eec7",
+      "Id": "df5dda74377f40dd907fb03c13ef82a5"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "52909efd75144ce3a633bb1dcb1162ec",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 645.66401460999009,
+        "Y": 2888.6442952583197
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "afa6105773d8478eb044712348a54895",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 409.65345270606542,
+        "Y": 2875.2049777581778
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "File Path",
+        "Id": "1c0bfa9eeb804ef4ab6c1b65565b032b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 403.78342434100955,
+        "Y": 3038.2479819975679
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "8b3e7d5411d740b68bb8c35c6e099288",
+        "Title": "To Excel",
+        "Nodes": [
+          "52909efd75144ce3a633bb1dcb1162ec",
+          "afa6105773d8478eb044712348a54895",
+          "1c0bfa9eeb804ef4ab6c1b65565b032b"
+        ],
+        "Left": 393.78342434100955,
+        "Top": 2822.2049777581778,
+        "Width": 385.88059026898054,
+        "Height": 310.04300423939003,
+        "FontSize": 36.0,
+        "InitialTop": 2875.2049777581778,
+        "InitialHeight": 308.04300423939003,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": -209.41202856217507,
+    "Y": -2224.2468415079757,
+    "Zoom": 0.864370253572736
+  }
+}

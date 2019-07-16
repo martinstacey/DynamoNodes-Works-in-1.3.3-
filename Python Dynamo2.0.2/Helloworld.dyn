@@ -1,0 +1,271 @@
+{
+  "Uuid": "2d246fc9-0279-42d1-83f9-95022d130aa3",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "Helloworld",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Enable Python support and load DesignScript library\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\ndataEnteringNode = IN\r\nname = IN [0]\r\n\r\nif name == None:\r\n\tname = \"World\"\r\n\r\nOUT = \"Hello \" + name",
+      "VariableInputPorts": true,
+      "Id": "c9b9ade10b6240f29b559f22ddf71496",
+      "Inputs": [
+        {
+          "Id": "748621c129be4e0fb1c9e92c635a90fb",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "9bd3f9827f2e48d98efc1c85e6575ecf",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "\"Martin\";",
+      "Id": "e0043ad3160c42838ffe20c054282a4a",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "f258c47214de45e8ac18091e63b2733f",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "ffdc6a575d9c4420949b0595a74c9962",
+      "Inputs": [
+        {
+          "Id": "e012f260455b4f7d9a6b7d97c2c8e934",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "954ee7a32f384536adb550681d04a0ca",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "7bdc8b79afa348a5b9265b8484750337",
+      "Inputs": [
+        {
+          "Id": "2a519d6160694e788ea87fec73ee6c03",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "c999fae2ea7e4b47a3a991f98db02c36",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Enable Python support and load DesignScript library\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\ndataEnteringNode = IN\r\nname = IN [0]\r\n\r\nif name == None:\r\n\tname = \"World\"\r\n\r\nOUT = \"Hello \" + name",
+      "VariableInputPorts": true,
+      "Id": "7e2df76e8bef465aaa74303a238ab7b3",
+      "Inputs": [
+        {
+          "Id": "0c96b4b99dbd4f9ba4ce9508304087f0",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "9dccae336aab4e48b11eb4825285a9ea",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "9bd3f9827f2e48d98efc1c85e6575ecf",
+      "End": "e012f260455b4f7d9a6b7d97c2c8e934",
+      "Id": "9ac5925d7260406db0f2d245f1e3175b"
+    },
+    {
+      "Start": "f258c47214de45e8ac18091e63b2733f",
+      "End": "748621c129be4e0fb1c9e92c635a90fb",
+      "Id": "fffcc88a1b96489798580d02852a3b87"
+    },
+    {
+      "Start": "9dccae336aab4e48b11eb4825285a9ea",
+      "End": "2a519d6160694e788ea87fec73ee6c03",
+      "Id": "55155cfdc7a54b8ab82f4bcd77ddcb65"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "c9b9ade10b6240f29b559f22ddf71496",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 544.54581289563123,
+        "Y": -190.55584448082328
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "e0043ad3160c42838ffe20c054282a4a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 340.54581289563123,
+        "Y": -186.34251114748994
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "ffdc6a575d9c4420949b0595a74c9962",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 768.54581289563123,
+        "Y": -190.55584448082328
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "7bdc8b79afa348a5b9265b8484750337",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 723.76701735502365,
+        "Y": -58.244502601331618
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "7e2df76e8bef465aaa74303a238ab7b3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 499.76701735502365,
+        "Y": -58.244502601331618
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "c730a04720e84b58bed31d03432446a4",
+        "Title": "HelloWorld",
+        "Nodes": [
+          "c9b9ade10b6240f29b559f22ddf71496",
+          "e0043ad3160c42838ffe20c054282a4a",
+          "ffdc6a575d9c4420949b0595a74c9962",
+          "7bdc8b79afa348a5b9265b8484750337",
+          "7e2df76e8bef465aaa74303a238ab7b3"
+        ],
+        "Left": 330.54581289563123,
+        "Top": -243.55584448082328,
+        "Width": 526.0,
+        "Height": 278.31134187949169,
+        "FontSize": 36.0,
+        "InitialTop": -190.55584448082328,
+        "InitialHeight": 277.31134187949169,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": 40.04923561906395,
+    "Y": 268.68288483457275,
+    "Zoom": 0.45182110332961711
+  }
+}

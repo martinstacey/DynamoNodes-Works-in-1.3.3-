@@ -1,0 +1,148 @@
+{
+  "Uuid": "2d246fc9-0279-42d1-83f9-95022d130aa3",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "Importing Modules",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\n#Document Manager de Revit\r\nclr.AddReference(\"RevitServices\")\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n#REVIT API\r\nclr.AddReference(\"RevitAPI\")\r\nfrom Autodesk.Revit.DB import FilteredElementCollector\r\n#REVIT NODES\r\nclr.AddReference(\"RevitNodes\")\r\nimport Revit\r\nclr.ImportExtensions(Revit.Elements)\r\n\r\nimport sys\r\nsys.path.append(\"C:\\Program Files (x86)\\IronPython 2.7\\Lib\")\r\nimport random\r\n\r\nvar1 = random.randint(0,200)\r\n\r\n\r\n\r\nOUT = var1",
+      "VariableInputPorts": true,
+      "Id": "206a45eab31e4083af79a94a0c4cf721",
+      "Inputs": [
+        {
+          "Id": "38dee22bb5cb464ba589a7dfd7219107",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "0db4385368a14a6e8c2e858b7cf7196f",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "c16cd8a05c7f4e61baef0cd776d1053a",
+      "Inputs": [
+        {
+          "Id": "874fe87ef4804cba8da06ed513e95d0b",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "0c845241924f487aa7f2b4dfe047ed6e",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "0db4385368a14a6e8c2e858b7cf7196f",
+      "End": "874fe87ef4804cba8da06ed513e95d0b",
+      "Id": "c7df03dcc7e94a15902e87eedaa301d7"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "206a45eab31e4083af79a94a0c4cf721",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 353.7023695716457,
+        "Y": 1309.3477255619096
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "c16cd8a05c7f4e61baef0cd776d1053a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 577.7023695716457,
+        "Y": 1309.3477255619096
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "5aeaa98798c743b79650cc4562a87465",
+        "Title": "Importar Modulos",
+        "Nodes": [
+          "206a45eab31e4083af79a94a0c4cf721",
+          "c16cd8a05c7f4e61baef0cd776d1053a"
+        ],
+        "Left": 343.7023695716457,
+        "Top": 1256.3477255619096,
+        "Width": 322.0,
+        "Height": 147.0,
+        "FontSize": 36.0,
+        "InitialTop": 1309.3477255619096,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": -159.71867177147385,
+    "Y": -965.87307291639809,
+    "Zoom": 0.90545212873096159
+  }
+}

@@ -1,0 +1,231 @@
+{
+  "Uuid": "2d246fc9-0279-42d1-83f9-95022d130aa3",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "TaskDialogOptions",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "17;\n13;\n31;\n21;\ntrue;",
+      "Id": "0f2866cd28ab43bbba707771ca665f72",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "d375adddf2d44f6fb228fd7e08e39e2b",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c54a344a5ac943ae96d6fb3660df4f12",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a53ab50a524e493eb4540fdd0a523e22",
+          "Name": "",
+          "Description": "Value of expression at line 3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d4c09eaf1d14481ca90aeb20a1db849e",
+          "Name": "",
+          "Description": "Value of expression at line 4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "068df4fa0a8443eb93aed76fa80566ef",
+          "Name": "",
+          "Description": "Value of expression at line 5",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n#The inputs to this node will be stored as a list in the IN variables.\r\n\r\nimport math\r\nimport clr\r\nclr.AddReference(\"RevitAPIUI\")\r\nfrom Autodesk.Revit.UI import *\r\n#Points Creation\r\n\r\ndataEnteringNode = IN\r\nangles = []\r\n\r\n\r\nangles = range(0, 360, 10)\r\nfor index, angle in enumerate(angles):\r\n\tangles[index] =  math.radians(angle)\r\n\r\nxPoints = []\r\n\r\nfor x in angles:\r\n\txPoints.append(IN[0]*math.cos(x))\r\n\t\r\n\t\r\nyPoints = []\r\n\r\nfor x in angles:\r\n\tyPoints.append(IN[0]*math.sin(x))\r\n\t\r\n\r\npointlist = []\r\n\r\nfor index, point in enumerate(xPoints):\r\n\tpointlist.append(Point.ByCoordinates(point,yPoints[index],0))\r\n\r\n\r\n#Policurve creation\r\n\t\r\nLinelist = PolyCurve.ByPoints(pointlist, True)\t\r\n\r\n#Surface creation\r\n\r\nSurface = Linelist.Patch()\r\n\r\n#Extrusion creation\r\n\r\nExtrude = Surface.Thicken(IN[0])\r\n\r\n\r\n#Rotation\r\n\r\nPointOrigin = Point.ByCoordinates(0,0,0)\r\n\r\n#Rotation Axis x\r\n\r\nPointDesplaceX = Point.ByCoordinates(1,0,0)\r\n\r\nVectorRoateX = Vector.ByTwoPoints(PointOrigin, PointDesplaceX)\r\n\r\nGeometryRotateX = Extrude.Rotate(PointOrigin, VectorRoateX, IN[1])\r\n\r\n#Rotation Axis Y\r\n\r\nPointDesplaceY = Point.ByCoordinates(0,1,0)\r\n\r\nVectorRoateY = Vector.ByTwoPoints(PointOrigin, PointDesplaceY)\r\n\r\nGeometryRotateY = GeometryRotateX.Rotate(PointOrigin, VectorRoateY, IN[2])\r\n\r\n#Rotation Axis Z\r\n\r\nPointDesplaceZ = Point.ByCoordinates(0,0,1)\r\n\r\nVectorRoateZ = Vector.ByTwoPoints(PointOrigin, PointDesplaceZ)\r\n\r\nGeometryRotateZ = GeometryRotateY.Rotate(PointOrigin, VectorRoateZ, IN[3])\r\n\r\n\r\nSurfaceVolumne = str(round(Surface.Area,2))\r\nTotalVolume = str(round(Extrude.Volume,2))\r\n\r\ndialog = TaskDialog(\"Metric\")\r\ndialog.MainInstruction = \"Values\"\r\ndialog.MainContent = \"Surface:     \" + SurfaceVolumne + \"\\n\" + \"Volume:      \"+ TotalVolume\r\n\r\ndialog.CommonButtons = TaskDialogCommonButtons.Ok;\r\ndialog.DefaultButton = TaskDialogResult.Ok;\r\n\r\n\r\nif Surface.Area > 500 :\r\n\tdialog.MainInstruction = \"WARNING VALUE > 500\"\r\n\tdialog.MainIcon = TaskDialogIcon.TaskDialogIconWarning;\r\n\tdialog.Show()\r\nelif IN[4] == True :\r\n\tdialog.Show()\r\nelse :\r\n\tpass\r\n\r\n#Assign your output to the OUT variable.\r\nOUT =  GeometryRotateZ",
+      "VariableInputPorts": true,
+      "Id": "10be7876cc41405094d08224eaae5ee3",
+      "Inputs": [
+        {
+          "Id": "ffee67caf49749e7988c17d34f322a80",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "dc479759e1244e5089ede35d27d1e42a",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "967db5bc40e34632905afe10ffbac9a9",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4963b0a7cc41426897075e7b3034f9f8",
+          "Name": "IN[3]",
+          "Description": "Input #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ece340fd82394f1f91ea7ffb795b5117",
+          "Name": "IN[4]",
+          "Description": "Input #4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8430f944f7f24e83907336fbe9e1fd91",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "d375adddf2d44f6fb228fd7e08e39e2b",
+      "End": "ffee67caf49749e7988c17d34f322a80",
+      "Id": "811e677958484fa4b2fe8f563ac8e7ce"
+    },
+    {
+      "Start": "c54a344a5ac943ae96d6fb3660df4f12",
+      "End": "dc479759e1244e5089ede35d27d1e42a",
+      "Id": "13f0107688b64d119977b1b2035b69f8"
+    },
+    {
+      "Start": "a53ab50a524e493eb4540fdd0a523e22",
+      "End": "967db5bc40e34632905afe10ffbac9a9",
+      "Id": "795339da842b49d7b02bbd7f3ca7e05d"
+    },
+    {
+      "Start": "d4c09eaf1d14481ca90aeb20a1db849e",
+      "End": "4963b0a7cc41426897075e7b3034f9f8",
+      "Id": "94f5e542ac424fee8796e8a26042216a"
+    },
+    {
+      "Start": "068df4fa0a8443eb93aed76fa80566ef",
+      "End": "ece340fd82394f1f91ea7ffb795b5117",
+      "Id": "eef8ce60adb9476f800e9f900eea9ee7"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "0f2866cd28ab43bbba707771ca665f72",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 381.477524584843,
+        "Y": 2542.61681716199
+      },
+      {
+        "ShowGeometry": false,
+        "Name": "Python Script",
+        "Id": "10be7876cc41405094d08224eaae5ee3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 627.204820819175,
+        "Y": 2502.07427727098
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "09d2b0dd44784f2ab6f30851356a038e",
+        "Title": "Task Dialog, Options",
+        "Nodes": [
+          "10be7876cc41405094d08224eaae5ee3",
+          "0f2866cd28ab43bbba707771ca665f72"
+        ],
+        "Left": 371.477524584843,
+        "Top": 2449.07427727098,
+        "Width": 389.72729623433196,
+        "Height": 250.54253989101016,
+        "FontSize": 36.0,
+        "InitialTop": 2502.07427727098,
+        "InitialHeight": 185.542539891012,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": -225.77030145134523,
+    "Y": -2311.2294979799735,
+    "Zoom": 1.0190700426541195
+  }
+}

@@ -1,0 +1,356 @@
+{
+  "Uuid": "2d246fc9-0279-42d1-83f9-95022d130aa3",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "ExtractParameters",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Nodes.DSModelElementSelection, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "c2fc958b-08bd-44f4-bb5b-42eeae425243-0006137a"
+      ],
+      "Id": "f1ed01e465f54f03a26f16b337e65419",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "d7b86613c4e24a3f8ed6970b17168ead",
+          "Name": "Element",
+          "Description": "The selected elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Enable Python support and load DesignScript library\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\n# The inputs to this node will be stored as a list in the IN variables.\r\ndatain = UnwrapElement(IN[0])\r\n\r\n# Place your code below this line\r\n\r\n# Assign your output to the OUT variable.\r\nOUT = datain",
+      "VariableInputPorts": true,
+      "Id": "75f1c591ec23473e830b290c8c0679bb",
+      "Inputs": [
+        {
+          "Id": "ae2bec70ab054cb0bf90640e4876d6ac",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "7578dcdbe609402c82dfc8d3dbc7e536",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "f8dfb064631e41c1a9d33da24beb1193",
+      "Inputs": [
+        {
+          "Id": "47eaaa14cde84b99a28a4d1235e5945d",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "120b86d1806b42888ea92d9522167ef5",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "Dynamo.Nodes.DSModelElementSelection, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "9f118965-197a-49da-8268-c1c5009e70ce-00061394"
+      ],
+      "Id": "67ef9f6b75ac4182996815800a2bd885",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "972af65bac834715a09fd0d61b74c8b0",
+          "Name": "Element",
+          "Description": "The selected elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Enable Python support and load DesignScript library\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\n# The inputs to this node will be stored as a list in the IN variables.\r\ndataEnteringNode = IN\r\n\r\n# Place your code below this line\r\nelUW = UnwrapElement(IN[0])\r\n#elementlist = elUW.Parameters\r\nparametersList = []\r\nfor i in elUW.Parameters:\r\n\tparametersList.append(i)\r\n\t\r\nOUT = parametersList",
+      "VariableInputPorts": true,
+      "Id": "ecbb66be589f413386a793be6ced68b8",
+      "Inputs": [
+        {
+          "Id": "dfb0887bc6fc40ada894dc65d9067613",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "73ea11d6386e420b95fccb0b6c6a7bf7",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "0fd3421e5ca24f2ca612ea2ace2af91e",
+      "Inputs": [
+        {
+          "Id": "c8cc4eadb5274cb1ad576d4e58c24923",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "bc985cf44fe64d0aa348a5a50ef964e8",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Enable Python support and load DesignScript library\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\n# The inputs to this node will be stored as a list in the IN variables.\r\ndataEnteringNode = IN\r\n\r\n# Place your code below this line\r\nelUW = UnwrapElement(IN[0])\r\nelParam = elUW.Parameters\r\nParamList = []\r\nfor i in elParam:\r\n\tParamList.append(i.Definition.Name)\r\n\t\r\nOUT = ParamList",
+      "VariableInputPorts": true,
+      "Id": "72427d9d0c524c9794dbd8eb26fc6ae1",
+      "Inputs": [
+        {
+          "Id": "446e37b3fba1474db648723f235e7d47",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "5dd06b0027634dce9743c53aab27ed01",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "d7b86613c4e24a3f8ed6970b17168ead",
+      "End": "ae2bec70ab054cb0bf90640e4876d6ac",
+      "Id": "2f867a1771c14f638aabc61e5faf9abe"
+    },
+    {
+      "Start": "7578dcdbe609402c82dfc8d3dbc7e536",
+      "End": "47eaaa14cde84b99a28a4d1235e5945d",
+      "Id": "f9d17f994fdb4c46a296b091a0ca3aab"
+    },
+    {
+      "Start": "972af65bac834715a09fd0d61b74c8b0",
+      "End": "dfb0887bc6fc40ada894dc65d9067613",
+      "Id": "754190536559453aad7d0178eeda9a7f"
+    },
+    {
+      "Start": "972af65bac834715a09fd0d61b74c8b0",
+      "End": "446e37b3fba1474db648723f235e7d47",
+      "Id": "16f255391263488eb124f965d4fd220d"
+    },
+    {
+      "Start": "5dd06b0027634dce9743c53aab27ed01",
+      "End": "c8cc4eadb5274cb1ad576d4e58c24923",
+      "Id": "1598ece494b94a64b74a23c706a2d878"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Select Model Element",
+        "Id": "f1ed01e465f54f03a26f16b337e65419",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 336.10416592212789,
+        "Y": 141.80955591702383
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Unwrap Element",
+        "Id": "75f1c591ec23473e830b290c8c0679bb",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 605.10416592212789,
+        "Y": 141.80955591702383
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "f8dfb064631e41c1a9d33da24beb1193",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 829.10416592212789,
+        "Y": 141.80955591702383
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Select Model Element",
+        "Id": "67ef9f6b75ac4182996815800a2bd885",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 334.8224033289506,
+        "Y": 475.26419994240194
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Get Parameters",
+        "Id": "ecbb66be589f413386a793be6ced68b8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 853.8224033289506,
+        "Y": 672.264199942402
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "0fd3421e5ca24f2ca612ea2ace2af91e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 853.8224033289506,
+        "Y": 278.26419994240194
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Get Parameters Name",
+        "Id": "72427d9d0c524c9794dbd8eb26fc6ae1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 603.8224033289506,
+        "Y": 278.26419994240194
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "51a56d1dbead4fdab39cd8a099046eb2",
+        "Title": "Extraer Parametros",
+        "Nodes": [
+          "f1ed01e465f54f03a26f16b337e65419",
+          "75f1c591ec23473e830b290c8c0679bb",
+          "f8dfb064631e41c1a9d33da24beb1193",
+          "67ef9f6b75ac4182996815800a2bd885",
+          "ecbb66be589f413386a793be6ced68b8",
+          "0fd3421e5ca24f2ca612ea2ace2af91e",
+          "72427d9d0c524c9794dbd8eb26fc6ae1"
+        ],
+        "Left": 324.8224033289506,
+        "Top": 88.809555917023829,
+        "Width": 663.0,
+        "Height": 676.45464402537823,
+        "FontSize": 36.0,
+        "InitialTop": 141.80955591702383,
+        "InitialHeight": 675.45464402537823,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": 29.826862006454292,
+    "Y": 93.686430493586954,
+    "Zoom": 0.42137402508898641
+  }
+}

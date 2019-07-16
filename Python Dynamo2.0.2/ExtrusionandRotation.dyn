@@ -1,0 +1,283 @@
+{
+  "Uuid": "2d246fc9-0279-42d1-83f9-95022d130aa3",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "ExtrusionandRotation",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Enable Python support and load DesignScript library\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\nimport math\r\n#INS\r\nradi = IN[0]\r\nxin = IN [1]\r\nyin = IN [2]\r\nnumpoints = IN[3]\r\nextr = IN[4]\r\n\r\nangles = []\r\nangles = range (0,360,numpoints)\r\nfor i, angle in enumerate(angles):\r\n\tangles[i] = math.radians(angle)\r\nxPoints = []\r\nfor x in angles:\r\n\txPoints.append(radi*math.cos(x)+xin)\r\nyPoints = []\r\nfor y in angles:\r\n\tyPoints.append(radi*math.sin(y)+yin)\r\npointlist = []\r\nfor i, point in enumerate(xPoints):\r\n\tpointlist.append(Point.ByCoordinates(point,yPoints[i],0))\r\n#Polycurve\r\nLineList = PolyCurve.ByPoints(pointlist,True)\r\nSurface = LineList.Patch()\r\n#Extrusion\r\nExtrude = Surface.Thicken(extr)\r\n#Rotation X Axis\r\nPointOrigin = Point.ByCoordinates(0,0,0)\r\nPointDisplaceX = Point.ByCoordinates(1,0,0)\r\nVectorRotateX = Vector.ByTwoPoints(PointOrigin,PointDisplaceX)\r\nGeometryRotateX = Extrude.Rotate(PointOrigin,VectorRotateX,IN[5])\r\n\r\n\r\n\r\nOUT = GeometryRotateX",
+      "VariableInputPorts": true,
+      "Id": "631058870edb4d178d1dceeb1e3f143c",
+      "Inputs": [
+        {
+          "Id": "c83fade2c72845748879abde69491331",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c6890ba12935480aa1afa9c3c528f090",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "047903b42ac0457fb479769c682cd20c",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ee9e29bce35947b2ab26dcd1d9e3768f",
+          "Name": "IN[3]",
+          "Description": "Input #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "51ca775620be4e3c803747440cc18ff7",
+          "Name": "IN[4]",
+          "Description": "Input #4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "49f52b469d164eb781cbf2b4c26687c0",
+          "Name": "IN[5]",
+          "Description": "Input #5",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "50e81ae069734c4c80a26f019e479b8b",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleSlider, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "MaximumValue": 100.0,
+      "MinimumValue": 0.0,
+      "StepValue": 0.1,
+      "InputValue": 4.7,
+      "Id": "f3ae89f2f5c34f65b784e8ba0989ed64",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "de9dbcb1455f444c9b3e5e37563801d2",
+          "Name": "",
+          "Description": "Double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A slider that produces numeric values."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.IntegerSlider, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Integer",
+      "InputValue": 37,
+      "MaximumValue": 100,
+      "MinimumValue": 0,
+      "StepValue": 1,
+      "Id": "97a3121c76a3423ba0d669a2b991a330",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ffe53383e94b4a9a9694447125a19b11",
+          "Name": "",
+          "Description": "Int32",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A slider that produces integer values."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleSlider, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "MaximumValue": 100.0,
+      "MinimumValue": 0.0,
+      "StepValue": 0.1,
+      "InputValue": 24.200000000000003,
+      "Id": "6939d2832bb74d09b37e0f6360bbd3a7",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "d51923e58f384cc6bf2297c837b487e8",
+          "Name": "",
+          "Description": "Double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A slider that produces numeric values."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "de9dbcb1455f444c9b3e5e37563801d2",
+      "End": "c83fade2c72845748879abde69491331",
+      "Id": "75690dd129334178aa5e093975e2499b"
+    },
+    {
+      "Start": "de9dbcb1455f444c9b3e5e37563801d2",
+      "End": "c6890ba12935480aa1afa9c3c528f090",
+      "Id": "301f6503f74e467682f76286568b45ee"
+    },
+    {
+      "Start": "de9dbcb1455f444c9b3e5e37563801d2",
+      "End": "047903b42ac0457fb479769c682cd20c",
+      "Id": "d233d5ef8d62451082c8586aa0ab21c8"
+    },
+    {
+      "Start": "de9dbcb1455f444c9b3e5e37563801d2",
+      "End": "51ca775620be4e3c803747440cc18ff7",
+      "Id": "eb176760d552452482f10c3706f0ea52"
+    },
+    {
+      "Start": "ffe53383e94b4a9a9694447125a19b11",
+      "End": "ee9e29bce35947b2ab26dcd1d9e3768f",
+      "Id": "0f11815e43fe4b97a4b78f0020f82f3f"
+    },
+    {
+      "Start": "d51923e58f384cc6bf2297c837b487e8",
+      "End": "49f52b469d164eb781cbf2b4c26687c0",
+      "Id": "60e420e7b0944fea971938360c749573"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": false,
+        "Name": "Python Script",
+        "Id": "631058870edb4d178d1dceeb1e3f143c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 766.6935478766286,
+        "Y": 1844.0060205412581
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Number Slider",
+        "Id": "f3ae89f2f5c34f65b784e8ba0989ed64",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 366.33326793274364,
+        "Y": 1845.7265804290278
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Integer Slider",
+        "Id": "97a3121c76a3423ba0d669a2b991a330",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 366.33326793274364,
+        "Y": 1928.7265804290278
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Number Slider",
+        "Id": "6939d2832bb74d09b37e0f6360bbd3a7",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 366.33326793274364,
+        "Y": 2012.726580429028
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "dd5821cc32d54c4abc293a8a362a11ab",
+        "Title": "Extrusion y Rotacion",
+        "Nodes": [
+          "631058870edb4d178d1dceeb1e3f143c",
+          "f3ae89f2f5c34f65b784e8ba0989ed64",
+          "97a3121c76a3423ba0d669a2b991a330",
+          "6939d2832bb74d09b37e0f6360bbd3a7"
+        ],
+        "Left": 356.33326793274364,
+        "Top": 1791.0060205412581,
+        "Width": 544.360279943885,
+        "Height": 289.72055988776992,
+        "FontSize": 36.0,
+        "InitialTop": 1844.0060205412581,
+        "InitialHeight": 312.00000000000023,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": 103.51347162937884,
+    "Y": -339.07146061715133,
+    "Zoom": 0.3380430506711774
+  }
+}
