@@ -1,0 +1,47 @@
+<Workspace Version="1.3.3.4651" X="-92.1463650393627" Y="-62.5532813847668" zoom="1.24844365397223" ScaleFactor="1" Name="Home" Description="" RunType="Automatic" RunPeriod="1000" HasRunWithoutCrash="True">
+  <NamespaceResolutionMap />
+  <Elements>
+    <PythonNodeModels.PythonNode guid="085f211f-22e1-4748-9935-d41c67d95801" type="PythonNodeModels.PythonNode" nickname="Python Script" x="400.323665593928" y="238.014959547653" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" inputcount="2">
+      <PortInfo index="0" default="False" />
+      <PortInfo index="1" default="False" />
+      <Script>import clr
+
+clr.AddReference("RevitNodes")
+import Revit
+clr.ImportExtensions(Revit.Elements)
+
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+doc = DocumentManager.Instance.CurrentDBDocument
+
+clr.AddReference('RevitAPI')
+from Autodesk.Revit.DB import XYZ, Line, Wall
+length = IN[0]
+level = UnwrapElement(IN[1])
+
+pt1 = XYZ(0,0,0)
+pt2 = XYZ(length,0,0)
+ 
+TransactionManager.Instance.EnsureInTransaction(doc)
+line = Line.CreateBound(pt1,pt2)
+wall = Wall.Create(doc,line,level.Id,False)
+TransactionManager.Instance.EnsureInTransaction(doc)
+ 
+OUT = wall</Script>
+    </PythonNodeModels.PythonNode>
+    <Dynamo.Graph.Nodes.CodeBlockNodeModel guid="943af018-6cf5-4767-94ad-e9940867ae05" type="Dynamo.Graph.Nodes.CodeBlockNodeModel" nickname="Code Block" x="158.298733014507" y="234.203989212707" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" CodeText="5;&#xA; //Wall Lenght;" ShouldFocus="false" />
+    <DSRevitNodesUI.Levels guid="38d99c55-fd60-450c-b31a-14a4efd4bc8f" type="DSRevitNodesUI.Levels" nickname="Levels" x="163.288759982739" y="325.174070117402" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false" index="0:Nivel 1" />
+  </Elements>
+  <Connectors>
+    <Dynamo.Graph.Connectors.ConnectorModel start="943af018-6cf5-4767-94ad-e9940867ae05" start_index="0" end="085f211f-22e1-4748-9935-d41c67d95801" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="38d99c55-fd60-450c-b31a-14a4efd4bc8f" start_index="0" end="085f211f-22e1-4748-9935-d41c67d95801" end_index="1" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="Background Preview" eyeX="-17" eyeY="24" eyeZ="50" lookX="12" lookY="-13" lookZ="-58" upX="0" upY="1" upZ="0" />
+  </Cameras>
+</Workspace>
