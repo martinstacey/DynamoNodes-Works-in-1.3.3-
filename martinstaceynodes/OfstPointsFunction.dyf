@@ -1,0 +1,21 @@
+<Workspace Version="1.3.2.2480" X="0" Y="0" zoom="1" ScaleFactor="1" Name="OfstPointsFunction" Description="Offset Points Function" ID="da2f88f9-2603-465e-b0d6-dab3007b6113" Category="martinstaceynodes">
+  <NamespaceResolutionMap>
+    <ClassMap partialName="Grid" resolvedName="Revit.Elements.Grid" assemblyName="RevitNodes.dll" />
+    <ClassMap partialName="Point" resolvedName="Autodesk.DesignScript.Geometry.Point" assemblyName="ProtoGeometry.dll" />
+    <ClassMap partialName="List" resolvedName="DSCore.List" assemblyName="DSCoreNodes.dll" />
+    <ClassMap partialName="BoundingBox" resolvedName="Autodesk.DesignScript.Geometry.BoundingBox" assemblyName="ProtoGeometry.dll" />
+    <ClassMap partialName="SectionView" resolvedName="Revit.Elements.Views.SectionView" assemblyName="RevitNodes.dll" />
+    <ClassMap partialName="Wall" resolvedName="Revit.Elements.Wall" assemblyName="RevitNodes.dll" />
+    <ClassMap partialName="Roof.ByOutlineExtrusionTypeAndLevel" resolvedName="Revit.Elements.Roof" assemblyName="RevitNodes.dll" />
+  </NamespaceResolutionMap>
+  <Elements>
+    <Dynamo.Graph.Nodes.CodeBlockNodeModel guid="b97dc5ea-9b11-4115-a78e-2cf0d5796270" type="Dynamo.Graph.Nodes.CodeBlockNodeModel" nickname="Code Block" x="250" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" CodeText="def OfstPoints(pointsType,posXs:var[],posYs:var[],offset,zval){&#xA;posX0 = List.GetItemAtIndex(posXs,0);&#xA;posY0 = List.GetItemAtIndex(posYs,0);&#xA;posXn1 = List.GetItemAtIndex(posXs,List.Count(posXs)-1);&#xA;posYn1 = List.GetItemAtIndex(posYs,List.Count(posYs)-1);&#xA;return = [Imperative] {&#xA;if    (pointsType==&quot;pX0Ys&quot; ) return=Point.ByCoordinates(posX0-offset,posYs,zval);&#xA;elseif(pointsType==&quot;pXsY0&quot; ) return=Point.ByCoordinates(posXs,posY0+offset,zval);&#xA;elseif(pointsType==&quot;pXn1Ys&quot;) return=Point.ByCoordinates(posXn1+offset,posYs,zval);&#xA;elseif(pointsType==&quot;pXsYn1&quot;) return=Point.ByCoordinates(posXs,posYn1-offset,zval);&#xA;elseif(pointsType==&quot;pX0Y0&quot;)  return=Point.ByCoordinates(posX0-offset, posY0+offset,zval);&#xA;elseif(pointsType==&quot;pXn1Y0&quot;) return=Point.ByCoordinates(posXn1+offset,posY0+offset,zval);&#xA;elseif(pointsType==&quot;pX0Yn1&quot;) return=Point.ByCoordinates(posX0-offset, posYn1-offset,zval);&#xA;elseif(pointsType==&quot;pXn1Yn1&quot;)return=Point.ByCoordinates(posXn1+offset,posYn1-offset,zval);&#xA;elseif(pointsType==&quot;pX0Ym&quot;)return=Point.ByCoordinates((posX0+posXn1)/2,posYn1-offset,zval);&#xA;elseif(pointsType==&quot;pXn1Ym&quot;)return=Point.ByCoordinates((posX0+posXn1)/2,posYn1-offset,zval);&#xA;elseif(pointsType==&quot;pXmYs&quot; ) return=Point.ByCoordinates((posX0+posXn1)/2,posYs,zval);&#xA;elseif(pointsType==&quot;pXsYm&quot; ) return=Point.ByCoordinates(posXs,(posY0+posYn1)/2,zval);&#xA;&#xA;else return= Point.ByCoordinates(0,0,0);&#xA;	}&#xA;};" ShouldFocus="false" />
+  </Elements>
+  <Connectors />
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="Background Preview" eyeX="-9.42711249408956" eyeY="38.228668837067" eyeZ="23.8572429528213" lookX="14.7058539011205" lookY="-30.2990060106783" lookZ="-16.5116580187972" upX="0.440703162118118" upY="0.748955761716417" upZ="-0.494819244213467" />
+  </Cameras>
+</Workspace>

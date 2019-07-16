@@ -1,0 +1,72 @@
+<Workspace Version="1.3.3.4651" X="0.294383698366403" Y="189.617658881435" zoom="0.667503408557747" ScaleFactor="1" Name="roofPointsGridL" Description="Lateral Walls From Grid List" ID="55aa1ee3-7d55-481c-b704-cd99f22391f2" Category="martinstaceynodes">
+  <NamespaceResolutionMap>
+    <ClassMap partialName="Excel" resolvedName="DSOffice.Excel" assemblyName="DSOffice.dll" />
+    <ClassMap partialName="List" resolvedName="DSCore.List" assemblyName="DSCoreNodes.dll" />
+    <ClassMap partialName="Point" resolvedName="Autodesk.DesignScript.Geometry.Point" assemblyName="ProtoGeometry.dll" />
+    <ClassMap partialName="Line" resolvedName="Autodesk.DesignScript.Geometry.Line" assemblyName="ProtoGeometry.dll" />
+    <ClassMap partialName="Grid" resolvedName="Revit.Elements.Grid" assemblyName="RevitNodes.dll" />
+    <ClassMap partialName="Dimension" resolvedName="Revit.Elements.Dimension" assemblyName="RevitNodes.dll" />
+    <ClassMap partialName="Floor.ByOutlineTypeAndLevel" resolvedName="Revit.Elements.Floor" assemblyName="RevitNodes.dll" />
+    <ClassMap partialName="Floor" resolvedName="Revit.Elements.Floor" assemblyName="RevitNodes.dll" />
+    <ClassMap partialName="StructuralType.C" resolvedName="Revit.Elements.StructuralType" assemblyName="RevitNodes.dll" />
+    <ClassMap partialName="StructuralType.Column" resolvedName="Revit.Elements.StructuralType" assemblyName="RevitNodes.dll" />
+    <ClassMap partialName="Vector" resolvedName="Autodesk.DesignScript.Geometry.Vector" assemblyName="ProtoGeometry.dll" />
+    <ClassMap partialName="StructuralFraming" resolvedName="Revit.Elements.StructuralFraming" assemblyName="RevitNodes.dll" />
+    <ClassMap partialName="DSOffice.Excel" resolvedName="DSOffice.Excel" assemblyName="DSOffice.dll" />
+    <ClassMap partialName="Level" resolvedName="Revit.Elements.Level" assemblyName="RevitNodes.dll" />
+    <ClassMap partialName="FloorPlanView" resolvedName="Revit.Elements.Views.FloorPlanView" assemblyName="RevitNodes.dll" />
+    <ClassMap partialName="DSCore.String" resolvedName="DSCore.String" assemblyName="DSCoreNodes.dll" />
+    <ClassMap partialName="Math" resolvedName="DSCore.Math" assemblyName="DSCoreNodes.dll" />
+    <ClassMap partialName="Roof" resolvedName="Revit.Elements.Roof" assemblyName="RevitNodes.dll" />
+    <ClassMap partialName="Wall" resolvedName="Revit.Elements.Wall" assemblyName="RevitNodes.dll" />
+  </NamespaceResolutionMap>
+  <Elements>
+    <Dynamo.Graph.Nodes.CodeBlockNodeModel guid="f75e93ae-cd28-46ec-853d-32b56eeeb3de" type="Dynamo.Graph.Nodes.CodeBlockNodeModel" nickname="Code Block" x="250" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" CodeText="colHeight;&#xA;rooflevel;&#xA;wt;&#xA;pXsY0Z  = OfstPoints(&quot;pXsY0&quot;,  posXs,posYs,0,colHeight);&#xA;pXsYn1Z = OfstPoints(&quot;pXsYn1&quot;,  posXs,posYs,0,colHeight);&#xA;lXsY0Z = Line.ByStartPointEndPoint(List.GetItemAtIndex(pXsY0Z,0),List.GetItemAtIndex(pXsY0Z,List.Count(pXsY0Z)-1));&#xA;lXsYn1Z = Line.ByStartPointEndPoint(List.GetItemAtIndex(pXsYn1Z,0),List.GetItemAtIndex(pXsYn1Z,List.Count(pXsYn1Z)-1));&#xA;&#xA;allwalls = {l1Of,l2Of};" ShouldFocus="false">
+      <PortInfo index="0" default="False" />
+      <PortInfo index="1" default="False" />
+      <PortInfo index="2" default="False" />
+      <PortInfo index="3" default="False" />
+      <PortInfo index="4" default="False" />
+      <PortInfo index="5" default="False" />
+      <PortInfo index="6" default="False" />
+    </Dynamo.Graph.Nodes.CodeBlockNodeModel>
+    <Dynamo.Graph.Nodes.CustomNodes.Symbol guid="9b374c3d-82ab-4def-bc81-ed33902f55d4" type="Dynamo.Graph.Nodes.CustomNodes.Symbol" nickname="Input" x="75.4244845379029" y="-46.6088209316777" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <Symbol value="ColumnHeight" />
+    </Dynamo.Graph.Nodes.CustomNodes.Symbol>
+    <Dynamo.Graph.Nodes.CustomNodes.Symbol guid="fa3a8096-c2cf-40c6-9362-893bfb73bbf6" type="Dynamo.Graph.Nodes.CustomNodes.Symbol" nickname="Input" x="108.424484537903" y="104.608751009415" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <Symbol value="roofType" />
+    </Dynamo.Graph.Nodes.CustomNodes.Symbol>
+    <Dynamo.Graph.Nodes.CustomNodes.Symbol guid="2a8e200f-4402-4c8a-8a2c-ce53c8cacf7b" type="Dynamo.Graph.Nodes.CustomNodes.Symbol" nickname="Input" x="100.424484537903" y="28.9999650388687" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <Symbol value="roofLevel" />
+    </Dynamo.Graph.Nodes.CustomNodes.Symbol>
+    <Dynamo.Graph.Nodes.CustomNodes.Symbol guid="485cb9e5-955c-423a-b1e4-f676e59b0e56" type="Dynamo.Graph.Nodes.CustomNodes.Symbol" nickname="Input" x="133.424484537903" y="180.217536979962" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <Symbol value="posXs" />
+    </Dynamo.Graph.Nodes.CustomNodes.Symbol>
+    <Dynamo.Graph.Nodes.CustomNodes.Symbol guid="fe265fd3-6b57-40fd-806e-12d1865765ba" type="Dynamo.Graph.Nodes.CustomNodes.Symbol" nickname="Input" x="133.424484537903" y="255.826322950508" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <Symbol value="posYs" />
+    </Dynamo.Graph.Nodes.CustomNodes.Symbol>
+    <Dynamo.Graph.Nodes.CustomNodes.Output guid="9a878744-254d-47f1-8ecb-b4d422133bd8" type="Dynamo.Graph.Nodes.CustomNodes.Output" nickname="Output" x="1107.36160827841" y="40.4613425292889" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+      <Symbol value="roofLevel" />
+    </Dynamo.Graph.Nodes.CustomNodes.Output>
+    <Dynamo.Graph.Nodes.CustomNodes.Output guid="ab303724-deb1-4aca-9b9f-c5845fc68c2d" type="Dynamo.Graph.Nodes.CustomNodes.Output" nickname="Output" x="1098.19728297307" y="160.143548048378" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+      <Symbol value="rooftype" />
+    </Dynamo.Graph.Nodes.CustomNodes.Output>
+  </Elements>
+  <Connectors>
+    <Dynamo.Graph.Connectors.ConnectorModel start="f75e93ae-cd28-46ec-853d-32b56eeeb3de" start_index="1" end="9a878744-254d-47f1-8ecb-b4d422133bd8" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="f75e93ae-cd28-46ec-853d-32b56eeeb3de" start_index="2" end="ab303724-deb1-4aca-9b9f-c5845fc68c2d" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="9b374c3d-82ab-4def-bc81-ed33902f55d4" start_index="0" end="f75e93ae-cd28-46ec-853d-32b56eeeb3de" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="fa3a8096-c2cf-40c6-9362-893bfb73bbf6" start_index="0" end="f75e93ae-cd28-46ec-853d-32b56eeeb3de" end_index="2" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="2a8e200f-4402-4c8a-8a2c-ce53c8cacf7b" start_index="0" end="f75e93ae-cd28-46ec-853d-32b56eeeb3de" end_index="1" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="485cb9e5-955c-423a-b1e4-f676e59b0e56" start_index="0" end="f75e93ae-cd28-46ec-853d-32b56eeeb3de" end_index="3" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="fe265fd3-6b57-40fd-806e-12d1865765ba" start_index="0" end="f75e93ae-cd28-46ec-853d-32b56eeeb3de" end_index="4" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="Background Preview" eyeX="-16.6054573059082" eyeY="8.59592723846436" eyeZ="23.5794296264648" lookX="35.5491523742676" lookY="-20.9521179199219" lookZ="-31.2423801422119" upX="0.149753555655479" upY="0.97992467880249" upZ="-0.131610959768295" />
+  </Cameras>
+</Workspace>
