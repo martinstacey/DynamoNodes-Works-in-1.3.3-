@@ -1,0 +1,176 @@
+{
+  "Uuid": "8b42f302-ab1b-4b9b-b6cf-36168af1cc0a",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "Rotate Elements own Axis",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.FamilyInstance.SetRotation@double",
+      "Id": "4a2e38497af047fc9e3164201db2ea5d",
+      "Inputs": [
+        {
+          "Id": "44c41f0fb6e44e4ea7915ab4e0995950",
+          "Name": "familyInstance",
+          "Description": "Revit.Elements.FamilyInstance",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9350e3b908c549d3bc77fce5368e6a4f",
+          "Name": "degree",
+          "Description": "The Euler angle around Z-axis.\n\ndouble",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "eaacae5ddf1743309cf762129e8fd7a5",
+          "Name": "FamilyInstance",
+          "Description": "The result family instance.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Set the Euler angle of the family instance around its local Z-axis.\n\nFamilyInstance.SetRotation (degree: double): FamilyInstance"
+    },
+    {
+      "ConcreteType": "Dynamo.Nodes.DSModelElementsSelection, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "ae7eb636-0097-4ba2-b774-61997a36ff90-00055a90",
+        "ae7eb636-0097-4ba2-b774-61997a36ff90-00055a93",
+        "ae7eb636-0097-4ba2-b774-61997a36ff90-00055a96",
+        "ae7eb636-0097-4ba2-b774-61997a36ff90-00055a99",
+        "ae7eb636-0097-4ba2-b774-61997a36ff90-00055a9c",
+        "ae7eb636-0097-4ba2-b774-61997a36ff90-00055a9f",
+        "ae7eb636-0097-4ba2-b774-61997a36ff90-00055aa2",
+        "ae7eb636-0097-4ba2-b774-61997a36ff90-00055aa5",
+        "ae7eb636-0097-4ba2-b774-61997a36ff90-00055aa8",
+        "ae7eb636-0097-4ba2-b774-61997a36ff90-00055aab",
+        "ae7eb636-0097-4ba2-b774-61997a36ff90-00055aae",
+        "ae7eb636-0097-4ba2-b774-61997a36ff90-00055ab1"
+      ],
+      "Id": "f4c8bedbf45944cfadeb2738cb235469",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "7f37c93650f74d37a135937719c549ab",
+          "Name": "Elements",
+          "Description": "The selected elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "60;",
+      "Id": "356ac48b9d0943fb9ea9e5b5d47c616d",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "2e3bda54bc2b42aeb14ef601746e4924",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "7f37c93650f74d37a135937719c549ab",
+      "End": "44c41f0fb6e44e4ea7915ab4e0995950",
+      "Id": "1290f1cbb57c49a98ee21a7c5ad53fa6"
+    },
+    {
+      "Start": "2e3bda54bc2b42aeb14ef601746e4924",
+      "End": "9350e3b908c549d3bc77fce5368e6a4f",
+      "Id": "edb37ac58dcf4deb9168a63c33d1ce0d"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "FamilyInstance.SetRotation",
+        "Id": "4a2e38497af047fc9e3164201db2ea5d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 433.76607749731664,
+        "Y": 124.59222544673958
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Select Model Elements",
+        "Id": "f4c8bedbf45944cfadeb2738cb235469",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 81.272526419539759,
+        "Y": 67.450618007277754
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "356ac48b9d0943fb9ea9e5b5d47c616d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 257.00472588067544,
+        "Y": 242.61599128996261
+      }
+    ],
+    "Annotations": [],
+    "X": 87.2130235518789,
+    "Y": 70.716965879205873,
+    "Zoom": 0.69561644130111477
+  }
+}

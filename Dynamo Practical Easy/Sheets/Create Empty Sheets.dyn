@@ -1,0 +1,234 @@
+{
+  "Uuid": "8aaba61b-b54f-49d6-a721-92ba0e7168f8",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "Create Sheets",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Function, DynamoCore",
+      "FunctionSignature": "b72d3759-c803-4eec-b9d2-2eacae829978",
+      "FunctionType": "Graph",
+      "NodeType": "FunctionNode",
+      "Id": "93215161c33b4722b40fea182a400a84",
+      "Inputs": [
+        {
+          "Id": "1929a299f73741a7b04b25e295f1236c",
+          "Name": "Type [TitleBlock]",
+          "Description": "var[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8584072760ab4226b5b677589df3d548",
+          "Name": "Numbers",
+          "Description": "var[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ae01fdb69da94d818f3df163584be10c",
+          "Name": "Names",
+          "Description": "var[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9d5a8c6c9b224c819d87fc0e7d25b9ee",
+          "Name": "Refresh",
+          "Description": "bool",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "43627b2c5ad24fb2acfa390f2869d59c",
+          "Name": "Sheets",
+          "Description": "return value",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Add the amount of sheets from titleblock type. numbers and names are set from lists"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "[\"A01\",\"A02\",\"A03\",\"A04\"];\n[\"Planta Baja\",\"Planta Alta\",\"Corte 1\",\"Corte 2\"];",
+      "Id": "8aa3f272096a4554a3490797bcb2ee0d",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "e6ad898916e843aabd385297021896c0",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1b8b154cb5ac4720ae06ca98d9d1762c",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": false,
+      "Id": "81212b47f99c428c8d40d1892fa3c24c",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "971cc3ffb0f747ecabd718e6b3560751",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Selection between a true and false."
+    },
+    {
+      "ConcreteType": "DSRevitNodesUI.FamilyTypes, DSRevitNodesUI",
+      "SelectedIndex": 0,
+      "NodeType": "ExtensionNode",
+      "Id": "adb4e46903344d25b60958795225c543",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "92c400d6b50a423395fec5fab6f6782a",
+          "Name": "Family Type",
+          "Description": "The selected Family Type",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "All family types available in the document."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "e6ad898916e843aabd385297021896c0",
+      "End": "8584072760ab4226b5b677589df3d548",
+      "Id": "e8ce0053f186473ea40c27637278a3db"
+    },
+    {
+      "Start": "1b8b154cb5ac4720ae06ca98d9d1762c",
+      "End": "ae01fdb69da94d818f3df163584be10c",
+      "Id": "efc7d76b2c8b4cb492083712d396c3fc"
+    },
+    {
+      "Start": "971cc3ffb0f747ecabd718e6b3560751",
+      "End": "9d5a8c6c9b224c819d87fc0e7d25b9ee",
+      "Id": "df4f2c7347bf4f77a2c2410e1a72142a"
+    },
+    {
+      "Start": "92c400d6b50a423395fec5fab6f6782a",
+      "End": "1929a299f73741a7b04b25e295f1236c",
+      "Id": "748e29c595734a26b9d725eadbc579c4"
+    }
+  ],
+  "Dependencies": [
+    "b72d3759-c803-4eec-b9d2-2eacae829978"
+  ],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Tool.CreateEmptySheet",
+        "Id": "93215161c33b4722b40fea182a400a84",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1037.2160052560077,
+        "Y": 481.88105571160474
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "8aa3f272096a4554a3490797bcb2ee0d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 504.17838321487227,
+        "Y": 552.42264309247673
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Boolean",
+        "Id": "81212b47f99c428c8d40d1892fa3c24c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 809.21786338423317,
+        "Y": 642.20004854872434
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Family Types",
+        "Id": "adb4e46903344d25b60958795225c543",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 725.85660738531283,
+        "Y": 460.61327449999391
+      }
+    ],
+    "Annotations": [],
+    "X": -360.053071379569,
+    "Y": -97.254112109594075,
+    "Zoom": 0.88920302202503487
+  }
+}
